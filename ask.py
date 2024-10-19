@@ -7,7 +7,7 @@ import time
 import json
 
 searchstr="pmst"
-
+Headless=False
 
 def search(beg,end):
     for i in range(beg,end+1):
@@ -45,7 +45,13 @@ def ask(string,uid):
 
 gecko_driver_path = 'D:\chromedriver-win64\chromedriver.exe'
 service = Service(executable_path=gecko_driver_path)
-driver = webdriver.Chrome(service=service)
+if(Headless==True):
+    opt = webdriver.ChromeOptions()
+    opt.add_argument('--headless')
+    opt.add_argument('--disable-gpu')
+    driver = webdriver.Chrome(service=service,options=opt)
+else:
+    driver = webdriver.Chrome(service=service)
 driver.get("http://47.92.197.167:5283")
 with open('cookies.txt','r') as f:
     cookies_list = json.load(f)
@@ -53,4 +59,4 @@ with open('cookies.txt','r') as f:
         driver.add_cookie(cookie)
 driver.refresh()
 
-search(245100,250000)
+search(245100,245105)
