@@ -53,11 +53,11 @@ if(Headless==True):
 else:
     driver = webdriver.Chrome(service=service)
 driver.get("http://47.92.197.167:5283")
-with open('cookies.txt','r') as f:
+with open('./cookies.txt','r') as f:
     cookies_list = json.load(f)
     for cookie in cookies_list:
         driver.add_cookie(cookie)
 driver.refresh()
+
+
 search(246082,255105)
-#245222
-#245281
