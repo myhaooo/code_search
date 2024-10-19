@@ -6,6 +6,8 @@ from selenium.webdriver.common.by import By
 import time
 import json
 
+searchstr="pmst"
+
 
 def search(beg,end):
     for i in range(beg,end+1):
@@ -16,28 +18,29 @@ def search(beg,end):
             break
 
 
-
 def ask(string,uid):
     driver.get(string)
+    s1=driver.find_element(By.CLASS_NAME,"content").text
+    if("提交记录" in s1 and "不正确" in s1):#在搜索至最后一个时末尾自动停止
+        return 1
     #time.sleep(0.5)
     try:
         a1 = driver.find_element(By.ID,'status_table').text
     except:
         return 0
     else:
-        time.sleep(0.5)
+        #time.sleep(0.5)
+        #print(uid)
         #print(a1)
         # if("Accepted" in a1):
         #     f1=driver.find_element(By.TAG_NAME,'code').text
         #     print(f1)
-        searchstr="light"
-        if("Accepted" in a1 and searchstr in a1):
+        if("Accepted" in a1 and (searchstr in a1 or searchstr=='')):#搜索所有AC的代码，若有searchstr则追加搜索
             print(a1)
-            print("fvvvvvvvvvvvvvvvvvvvvvv")
             f1=driver.find_element(By.TAG_NAME,'code').text
-            with open(uid+"_"+searchstr+'.txt','w') as f:
+            with open("code/"+searchstr+"_"+uid+'.txt','w') as f:#存放在./code 文件夹下
                 f.write(f1)
-            time.sleep(3)
+            #time.sleep(5)
         return 0
 
 gecko_driver_path = 'D:\chromedriver-win64\chromedriver.exe'
