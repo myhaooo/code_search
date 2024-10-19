@@ -38,7 +38,7 @@ def ask(string,uid):
         if("Accepted" in a1 and (searchstr in a1 or searchstr=='')):#搜索所有AC的代码，若有searchstr则追加搜索
             print(a1)
             f1=driver.find_element(By.TAG_NAME,'code').text
-            with open("code/"+searchstr+"_"+uid+'.txt','w') as f:#存放在./code 文件夹下
+            with open("../download_code/"+searchstr+"_"+uid+'.txt','w') as f:#存放在./code 文件夹下
                 f.write(f1)
             time.sleep(3)
         return 0
