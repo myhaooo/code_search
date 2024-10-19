@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 import time
 import json
 
-searchstr="pmst"
+searchstr="jump"
 Headless=False
 
 def search(beg,end):
@@ -20,12 +20,12 @@ def search(beg,end):
 
 def ask(string,uid):
     driver.get(string)
-    s1=driver.find_element(By.CLASS_NAME,"content").text
-    if("提交记录" in s1 and "不正确" in s1):#在搜索至最后一个时末尾自动停止
-        return 1
-    #time.sleep(0.5)
     try:
         a1 = driver.find_element(By.ID,'status_table').text
+        s1=driver.find_element(By.CLASS_NAME,"content").text
+        if("提交记录" in s1 and "不正确" in s1):#在搜索至最后一个时末尾自动停止
+            return 1
+        time.sleep(1)
     except:
         return 0
     else:
@@ -40,7 +40,7 @@ def ask(string,uid):
             f1=driver.find_element(By.TAG_NAME,'code').text
             with open("code/"+searchstr+"_"+uid+'.txt','w') as f:#存放在./code 文件夹下
                 f.write(f1)
-            #time.sleep(5)
+            time.sleep(3)
         return 0
 
 gecko_driver_path = 'D:\chromedriver-win64\chromedriver.exe'
@@ -58,5 +58,4 @@ with open('cookies.txt','r') as f:
     for cookie in cookies_list:
         driver.add_cookie(cookie)
 driver.refresh()
-
-search(245100,245105)
+search(245179,255105)
